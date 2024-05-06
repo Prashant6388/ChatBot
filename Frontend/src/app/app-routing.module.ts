@@ -14,52 +14,64 @@ import { ShowTopicComponent } from './modules/show-topic/show-topic.component';
 import { NotAuthGuard } from './shared/services/not-auth.guard';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 
+// const routes: Routes = [
+//   {
+//     path: 'home',
+//     canActivate: [AuthGuard],
+//     component: WelcomeComponent,
+//   },
+//   {
+//     path: '',
+//     component: StartPageComponent,
+//     canActivate : [NotAuthGuard]
+//   },
+//   {
+//     path: 'dashboard',
+//     canActivate: [AuthGuard],
+//     component: DashboardComponent,
+//   },
+//   {
+//     path: 'diagram',
+//     canActivate: [AuthGuard],
+//     component: DiagramPageComponent,
+//   },
+//   {
+//     path: 'show-topic/journey/:jid/course/:cid/topic/:id',
+//     canActivate: [AuthGuard],
+//     component: ShowTopicComponent,
+//   },
+//   {
+//     path: 'login',
+//     component: LoginComponent,
+//   },
+//   {
+//     path: 'register',
+//     component: RegisterComponent,
+//   },
+//   {
+//     path: 'user-profile',
+//     canActivate: [AuthGuard],
+//     component: UserProfileComponent,
+//   },
+//   {
+//     path: 'chatbot',
+//     component: ChatBot,
+//   },
+//   { path: '**',
+//    component: NotFoundComponent
+//   },
+// ];
+
 const routes: Routes = [
   {
-    path: 'home',
-    canActivate: [AuthGuard],
-    component: WelcomeComponent,
+    path: 'welcome-dashboard',
+    loadChildren: () => import('./modules/welcome-dash-board/welcome-dash-board.module').then(m => m.WelcomeDashBoardModule)
   },
   {
     path: '',
-    component: StartPageComponent,
-    canActivate : [NotAuthGuard]
-  },
-  {
-    path: 'dashboard',
-    canActivate: [AuthGuard],
-    component: DashboardComponent,
-  },
-  {
-    path: 'diagram',
-    canActivate: [AuthGuard],
-    component: DiagramPageComponent,
-  },
-  {
-    path: 'show-topic/journey/:jid/course/:cid/topic/:id',
-    canActivate: [AuthGuard],
-    component: ShowTopicComponent,
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-  },
-  {
-    path: 'user-profile',
-    canActivate: [AuthGuard],
-    component: UserProfileComponent,
-  },
-  {
-    path: 'chatbot',
-    component: ChatBot,
-  },
-  { path: '**',
-   component: NotFoundComponent
-  },
+    redirectTo: '/welcome-dashboard',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

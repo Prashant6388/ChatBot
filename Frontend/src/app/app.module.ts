@@ -38,7 +38,7 @@ import { LoginComponent } from './modules/auth/login/login.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
 import { RegisterFormComponent } from './shared/components/forms/register-form/register-form.component';
 import { LoginFormComponent } from './shared/components/forms/login-form/login-form.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SnackbarComponent } from './shared/components/partials/snackbar/snackbar.component';
 import { AppLoaderComponent } from './shared/components/partials/app-loader/app-loader.component';
 import { RecommendationSelectorComponent } from './shared/components/partials/recommendation-selector/recommendation-selector.component';
@@ -129,6 +129,8 @@ import { OerViewComponent } from './shared/components/oer-view/oer-view.componen
 import { MatExpansionModule } from '@angular/material/expansion';
 import { NotFoundComponent } from './modules/not-found/not-found.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { CustomHttpInterceptor } from './shared/custom-http-interceptor';
 const config: SocketIoConfig = {
   url: environment.socketUrl, // socket server url;
   options: {}
@@ -271,7 +273,10 @@ const config: SocketIoConfig = {
     MatExpansionModule,
     PdfViewerModule
   ],
-  providers: [],
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
